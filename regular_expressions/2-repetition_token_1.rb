@@ -5,5 +5,4 @@ if ARGV.empty?
   exit
 end
 
-# Match patterns where 't' is optional
-puts ARGV[0].scan(/hbt?n/).join
+puts ARGV[0].scan(/hb?tn/).join
