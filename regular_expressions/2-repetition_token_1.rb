@@ -5,5 +5,5 @@ if ARGV.empty?
   exit
 end
 
-# Match patterns where 't' repeats exactly once
-puts ARGV[0].scan(/hbt{1}n/).join
+# Match patterns where 't' is optional
+puts ARGV[0].scan(/hbt?n/).join
