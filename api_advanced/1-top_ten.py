@@ -14,6 +14,12 @@ def top_ten(subreddit):
     }
     response = requests.get(url, headers=headers, params=params, allow_redirects=False)
     
+    # Print response status code
+    print("Status Code:", response.status_code)
+    
+    # Print response content
+    print("Response Content:", response.text)
+    
     if response.status_code != 200:
         print("None")
         return
@@ -28,4 +34,3 @@ def top_ten(subreddit):
 
 # Example usage
 top_ten("python")
-
