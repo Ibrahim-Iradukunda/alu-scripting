@@ -1,34 +1,22 @@
 #!/usr/bin/python3
-"""Prints the title of the first 10 hot posts listed for a given subreddit"""
-
+"""Contains top_ten function"""
 import requests
 
+
 def top_ten(subreddit):
-    """Main function"""
-    URL = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
-    HEADERS = {"User-Agent": "PostmanRuntime/7.35.0"}
-
-    try:
-        RESPONSE = requests.get(URL, headers=HEADERS, allow_redirects=False)
-
-        # Check if the response is valid
-        if RESPONSE.status_code != 200:
-            print("None")
-            return
-        
-        DATA = RESPONSE.json().get("data")
-        if not DATA:
-            print("None")
-            return
-        
-        HOT_POSTS = DATA.get("children", [])
-        
-        if not HOT_POSTS:
-            print("None")
-            return
-        
-        for post in HOT_POSTS:
-            print(post.get('data', {}).get('title', "None"))
-
-    except Exception as e:
+    """Print the titles of the 10 hottest posts on a given subreddit."""
+    url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
+    headers = {
+        "User-Agent": "0x16-api_advanced:project:\
+v1.0.0 (by /u/firdaus_cartoon_jr)"
+    }
+    params = {
+        "limit": 10
+    }
+    response = requests.get(url, headers=headers, params=params,
+                            allow_redirects=False)
+    if response.status_code == 404:
         print("None")
+        return
+    results = response.json().get("data")
+    [print(c.get("data").get("title")) for c in results.get("children")]
