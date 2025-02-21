@@ -2,11 +2,13 @@
 """Contains top_ten function"""
 import requests
 
+
+
 def top_ten(subreddit):
-    """Print the titles of the 10 hottest posts on a given subreddit."""
+    """Print the titles of the 10 hottest."""
     url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
     headers = {
-        "User-Agent": "0x16-api_advanced:project:v1.0.0 (by /u/firdaus_cartoon_jr)"
+        "User-Agent": "0x16-api_advanced"
     }
     params = {
         "limit": 10
