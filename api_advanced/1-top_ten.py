@@ -26,4 +26,3 @@ def top_ten(subreddit):
         print("None")
     except ValueError:
         print("None")
-
