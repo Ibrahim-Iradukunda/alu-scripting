@@ -1,7 +1,11 @@
 #!/usr/bin/python3
+"""
+1-top_ten module
+"""
 import requests
 
 def top_ten(subreddit):
+    """Queries the Reddit API and prints the titles of the first 10 hot posts for a given subreddit"""
     url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
     headers = {"User-Agent": "Mozilla/5.0"}
     
@@ -13,5 +17,5 @@ def top_ten(subreddit):
                 print(post.get("data", {}).get("title", "None"))
         else:
             print(None)
-    except Exception as e:
+    except requests.RequestException:
         print(None)
