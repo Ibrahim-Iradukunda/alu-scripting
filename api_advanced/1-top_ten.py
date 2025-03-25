@@ -15,17 +15,23 @@ def top_ten(subreddit):
         response = requests.get('https://www.reddit.com/r/{}/hot/.json?limit=10'
                                 .format(subreddit), headers=user)
         if response.status_code != 200:
-            print(None)
+            print("None")
             return
+
         data = response.json()
-        for post in data.get('data', {}).get('children', []):
+        children = data.get('data', {}).get('children', [])
+        if not children:
+            print("None")
+            return
+
+        for post in children:
             print(post.get('data', {}).get('title'))
     except Exception:
-        print(None)
+        print("None")
 
 
 if __name__ == "__main__":
     if len(argv) > 1:
         top_ten(argv[1])
     else:
-        print(None)
+        print("None")
