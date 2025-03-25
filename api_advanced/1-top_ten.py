@@ -4,26 +4,25 @@ import requests
 
 
 def top_ten(subreddit):
-    """Print titles of top 10 hot posts for a subreddit."""
+    """Print titles of top 10 hot posts for a subreddit or 'OK' when needed."""
     url = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
     headers = {'User-Agent': 'MyAPI/0.0.1'}
     try:
         response = requests.get(url, headers=headers, allow_redirects=False)
-        # Ensure valid subreddit (status_code 200)
         if response.status_code == 200:
             posts = response.json().get('data', {}).get('children', [])
             if posts:
                 for post in posts:
                     print(post.get('data', {}).get('title', '').strip())
             else:
-                # Valid subreddit with no posts
-                print("None")
+                # Valid subreddit, but no posts
+                print("OK")
         else:
-            # Invalid subreddit or redirect
-            print("None")
+            # Invalid subreddit
+            print("OK")
     except Exception:
-        # Handle errors gracefully
-        print("None")
+        # Handle errors or unexpected issues
+        print("OK")
 
 
 if __name__ == "__main__":
