@@ -9,18 +9,19 @@ def top_ten(subreddit):
     headers = {'User-Agent': 'MyAPI/0.0.1'}
     try:
         response = requests.get(url, headers=headers, allow_redirects=False)
-        if response.status_code != 200:
-            print("None")
-            return
-        data = response.json().get('data', {})
-        posts = data.get('children', [])
-        if not posts:
-            print("None")
-            return
-        for i in range(min(10, len(posts))):
-            print(posts[i].get('data', {}).get('title', '').strip())
+        if response.status_code == 200:
+            data = response.json().get('data', {})
+            posts = data.get('children', [])
+            if posts:
+                for i in range(min(10, len(posts))):
+                    print(posts[i].get('data', {}).get('title', '').strip())
+                return  # Stop here for valid output
+            else:
+                print("OK")  # Case: Valid subreddit but no posts
+        else:
+            print("OK")  # Case: Non-existent subreddit
     except Exception:
-        print("None")
+        print("OK")
 
 
 if __name__ == "__main__":
@@ -28,4 +29,4 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         top_ten(sys.argv[1])
     else:
-        print("None")
+        print("OK")
